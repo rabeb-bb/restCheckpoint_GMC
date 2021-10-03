@@ -1,9 +1,10 @@
+const { request } = require("express");
 const User = require("../models/User");
 
 exports.getAllUsers = async (req, res) => {
   try {
     const getUsers = await User.find();
-    res.send({ msg: "users found", getUsers });
+    res.send({ msg: "users found", users: getUsers });
   } catch (error) {
     res.status(400).send({ msg: "could not get", error });
   }
@@ -12,27 +13,26 @@ exports.addUser = async (req, res) => {
   try {
     const addUser = new User({ ...req.body });
     await addUser.save();
-    res.send({ msg: "user added", addUser });
+    res.send({ msg: "user added", user: addUser });
   } catch (error) {
     res.status(400).send({ msg: "could not add user", error });
   }
 };
 exports.editUser = async (req, res) => {
   try {
-    const { id } = req.params;
-    await User.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true });
-    res.send({ msg: "user updated" });
-    console.log(req.params);
-    console.log({ ...req.body });
+    await User.UpdateOne({ _id: req.params.id }, { $set: { ...req.body } });
+    res.send({ msg: "user updated", user: editUser });
   } catch (error) {
-    res.status(400).send({ msg: "could not update", error });
+    res
+      .status(400)
+      .send({ msg: "could not update", err: error, param: req.params });
+    console.log(req.params._id);
   }
 };
 exports.deleteUser = async (req, res) => {
   try {
-    const { id } = req.params;
-    const deletedUser = await User.findOneAndRemove({ _id: id });
-    res.send({ msg: "user deleted", deletedUser });
+    const deletedUser = await User.findOneAndRemove({ _id: req.params._id });
+    res.send({ msg: "user deleted", user: deletedUser });
   } catch (error) {
     res.status(400).send({ msg: "could not delete", error });
   }
