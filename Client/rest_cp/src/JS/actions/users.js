@@ -3,6 +3,7 @@ import {
   GET_ALL_USERS_FAIL,
   GET_ALL_USERS_LOAD,
   GET_ALL_USERS_SUCCESS,
+  GET_USER_SUCCESS,
 } from "../constants/action-types";
 
 export const getAllUsers = () => async (dispatch) => {
@@ -41,8 +42,28 @@ export const addUser = (user, history) => async (dispatch) => {
   dispatch({ type: GET_ALL_USERS_LOAD });
   try {
     await axios.post("/api/user/", user);
-    history.push("/users");
-    dispatch(getAllUsers);
+    dispatch(getAllUsers());
+    history.push("/userList");
+  } catch (error) {
+    dispatch({ type: GET_ALL_USERS_FAIL });
+  }
+};
+
+export const getUser = (id) => async (dispatch) => {
+  dispatch({ type: GET_ALL_USERS_LOAD });
+  try {
+    let res = await axios.get(`/api/user/${id}`);
+    dispatch({ type: GET_USER_SUCCESS, payload: res.data });
+  } catch (error) {
+    dispatch({ type: GET_ALL_USERS_FAIL });
+  }
+};
+
+export const userEdit = (id, user, history) => async (dispatch) => {
+  try {
+    await axios.put(`/api/user/${id}`, user);
+    // dispatch(getAllUsers());
+    // history.push("/userList");
   } catch (error) {
     dispatch({ type: GET_ALL_USERS_FAIL });
   }

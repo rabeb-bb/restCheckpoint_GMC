@@ -9,6 +9,14 @@ exports.getAllUsers = async (req, res) => {
     res.status(400).send({ msg: "could not get", error });
   }
 };
+exports.getUser = async (req, res) => {
+  try {
+    let getUser = await User.findById(req.params._id);
+    res.send({ msg: "user found", user: getUser });
+  } catch (error) {
+    res.status(400).send({ msg: "could not get", error });
+  }
+};
 exports.addUser = async (req, res) => {
   try {
     const addUser = new User({ ...req.body });
@@ -20,13 +28,14 @@ exports.addUser = async (req, res) => {
 };
 exports.editUser = async (req, res) => {
   try {
-    await User.UpdateOne({ _id: req.params.id }, { $set: { ...req.body } });
-    res.send({ msg: "user updated", user: editUser });
+    await User.updateOne({ _id: req.params._id }, { $set: { ...req.body } });
+    res.send({ msg: "user updated" });
   } catch (error) {
+    console.log(error);
     res
       .status(400)
       .send({ msg: "could not update", err: error, param: req.params });
-    console.log(req.params._id);
+    console.log(req.params);
   }
 };
 exports.deleteUser = async (req, res) => {

@@ -8,6 +8,7 @@ const Users = () => {
   const isLoad = useSelector((state) => state.userReducer.isLoad);
   const isError = useSelector((state) => state.userReducer.isError);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getAllUsers());
   }, [dispatch]);

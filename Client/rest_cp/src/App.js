@@ -9,12 +9,12 @@ import Users from "./Pages/Users";
 
 function App() {
   return (
-    <div>
+    <div className="App">
       <Navbar />
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/userList" component={Users} />
-        <Route path="/addUser" component={AddUser} />
+        <Route path={["/addUser", "/editUser/:_id"]} component={AddUser} />
         <Route path="/*" component={Error} />
       </Switch>
       <Footer />

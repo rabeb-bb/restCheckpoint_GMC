@@ -20,7 +20,7 @@ const userReducer = (state = initialState, { type, payload }) => {
     case GET_ALL_USERS_LOAD:
       return { ...state, isLoad: true };
     case GET_USER_SUCCESS:
-      return "fail";
+      return { ...state, user: payload.user, isLoad: false, isError: false };
 
     default:
       return state;
