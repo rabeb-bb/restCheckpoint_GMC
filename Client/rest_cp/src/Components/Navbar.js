@@ -117,7 +117,7 @@ export default function Navbar() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar position="static" style={{ backgroundColor: "black" }}>
         <Toolbar>
           <Typography className={classes.title} variant="h6" noWrap>
             <Link to="/">User App</Link>

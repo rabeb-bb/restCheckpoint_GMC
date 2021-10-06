@@ -45,8 +45,8 @@ const AddUser = () => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
   return (
-    <div>
-      <h2>{edit ? "editUser" : "addUser"} </h2>
+    <div style={{ margin: "5%" }}>
+      <h2>{edit ? "Edit User" : "Add User"} </h2>
       <Box
         component="form"
         sx={{
@@ -54,6 +54,13 @@ const AddUser = () => {
         }}
         noValidate
         autoComplete="off"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-around",
+          alignItems: "center",
+          margin: "3%",
+        }}
       >
         <TextField
           id="outlined-basic"
@@ -62,8 +69,10 @@ const AddUser = () => {
           name="name"
           onChange={handleChange}
           value={user.name}
+          style={{ margin: "0.5%", width: "35%" }}
         />
         <TextField
+          style={{ margin: "0.5%", width: "35%" }}
           type="number"
           id="outlined-basic"
           label="age"
@@ -73,6 +82,7 @@ const AddUser = () => {
           onChange={handleChange}
         />
         <TextField
+          style={{ margin: "0.5%", width: "35%" }}
           required
           id="outlined-basic"
           label="email"
@@ -81,7 +91,27 @@ const AddUser = () => {
           value={user.email}
           onChange={handleChange}
         />
-        <button onClick={handleClick}>save user</button>
+        <button
+          onClick={handleClick}
+          style={{
+            margin: "0.5%",
+            width: "5%",
+            color: "#fff",
+            height: "42px",
+
+            border: "none",
+
+            cursor: "pointer",
+            fontWeight: "300",
+
+            borderRadius: "70px",
+            boxShadow:
+              "0 13px 26px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.16)",
+            background: "linear-gradient(to bottom right, #798894, #9e9cb9)",
+          }}
+        >
+          save user
+        </button>
       </Box>
     </div>
   );

@@ -16,15 +16,14 @@ const Users = () => {
   return (
     <div>
       <h2>Users</h2>
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
+      <div
+        style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
+      >
         {isLoad
           ? "loading"
           : isError
           ? "could not fetch data"
           : users.map((el) => <UserCard user={el} key={el._id} />)}
-        {console.log(users)}
-        {console.log(isLoad)}
-        {console.log(isError)}
       </div>
     </div>
   );
